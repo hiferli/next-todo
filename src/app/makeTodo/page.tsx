@@ -6,11 +6,12 @@ const MakeTodos = () => {
     const todoKey: string = "Todos";
 
     const [formData, setFormData] = useState({
-        heading: 'f',
-        description: 'f',
-        tag: 'f'
+        heading: '',
+        description: '',
+        tag: '',
+        status: 'Open'
     });
-
+    
     const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) : void => {
         const { name, value } = event.target;
         setFormData({
@@ -18,12 +19,13 @@ const MakeTodos = () => {
             [name]: value
         });
     };
-
+    
     const clearFormData = () => {
         setFormData({
             heading: '',
             description: '',
-            tag: ''
+            tag: '',
+            status: 'Open'
         })
     }
 
@@ -35,7 +37,6 @@ const MakeTodos = () => {
         }
 
         const currentTodos = JSON.parse(localStorage.getItem(todoKey)!);
-        localStorage.clear();
         currentTodos.push(formData);
         localStorage.setItem(todoKey , JSON.stringify(currentTodos));
 
