@@ -2,15 +2,21 @@ import React from 'react'
 
 interface TodoProp {
     index: number,
-    todo: Record<string , any>
+    todo: Record<string, any>,
+    onComplete: (index: number) => void,
+    onReopen: (index: number) => void
 }
 
-const TodoCard: React.FC<TodoProp> = ({ index , todo }) => {
+const TodoCard: React.FC<TodoProp> = ({ index, todo, onComplete, onReopen }) => {
     const activeTodoKey: string = "activeTodos";
     const completedTodoKey: string = "completedTodos";
-    
-    const markComplete = () : void => {
-        
+
+    const handleChange = () => {
+        if (todo.status === "Open") {
+            onComplete(index);
+        } else {
+            onReopen(index);
+        }
     }
 
     return (
@@ -24,11 +30,17 @@ const TodoCard: React.FC<TodoProp> = ({ index , todo }) => {
                 )}
                 {todo.tag && (
                     <p className="text-gray-700">
-                        <span className="font-bold">Tags: <span className='text-red-700'>{todo.tag}</span></span> 
+                        <span className="font-bold">Tags: <span className='text-red-700'>{todo.tag}</span></span>
                     </p>
                 )}
 
-                <button onClick={markComplete}>Close Task</button>
+                <button
+                    onClick={handleChange}
+                    className='border-solid border-2 px-2 m-1 border-slate-900 rounded-md'
+                >
+                    {todo.status === 'Open' ? 'Close Task' : 'Reopen Task'}
+                </button>
+
             </div>
         </div>
     )
