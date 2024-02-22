@@ -3,7 +3,7 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react'
 
 const MakeTodos = () => {
-    const todoKey: string = "Todos";
+    const activeTodoKey: string = "activeTodos";
 
     const [formData, setFormData] = useState({
         heading: '',
@@ -32,13 +32,13 @@ const MakeTodos = () => {
     const handleSubmit = (event: FormEvent<HTMLFormElement>) : void => {
         event.preventDefault();
 
-        if(localStorage.getItem(todoKey) === null){
-            localStorage.setItem(todoKey , JSON.stringify([]));
+        if(localStorage.getItem(activeTodoKey) === null){
+            localStorage.setItem(activeTodoKey , JSON.stringify([]));
         }
 
-        const currentTodos = JSON.parse(localStorage.getItem(todoKey)!);
+        const currentTodos = JSON.parse(localStorage.getItem(activeTodoKey)!);
         currentTodos.push(formData);
-        localStorage.setItem(todoKey , JSON.stringify(currentTodos));
+        localStorage.setItem(activeTodoKey , JSON.stringify(currentTodos));
 
         clearFormData();
     }
